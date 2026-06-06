@@ -12,12 +12,11 @@ import { StatusBar } from "expo-status-bar";
 import { AuthLoading } from "@/components/auth/auth-loading";
 import { stripeConfig } from "@/config/stripe";
 import { useColorScheme } from "@/hooks/use-color-scheme";
+import { env } from "@/config/env";
 
 export const unstable_settings = {
   anchor: "(app)/(tabs)",
 };
-
-const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 
 function RootNavigator() {
   const colorScheme = useColorScheme();
@@ -33,9 +32,7 @@ function RootNavigator() {
       merchantIdentifier={stripeConfig.merchantIdentifier}
       urlScheme={stripeConfig.urlScheme}
     >
-      <ThemeProvider
-        value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-      >
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Protected guard={isSignedIn === true}>
             <Stack.Screen name="(app)" />
@@ -52,7 +49,10 @@ function RootNavigator() {
 
 export default function RootLayout() {
   return (
-    <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
+    <ClerkProvider
+      publishableKey={env.clerkPublishableKey}
+      tokenCache={tokenCache}
+    >
       <RootNavigator />
     </ClerkProvider>
   );
