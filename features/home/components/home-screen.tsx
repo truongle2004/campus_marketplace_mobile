@@ -1,6 +1,3 @@
-import { Show } from "@clerk/expo";
-import { UserButton } from "@clerk/expo/native";
-import { Link } from "expo-router";
 import { useState } from "react";
 import {
   Pressable,
@@ -9,14 +6,18 @@ import {
   TextInput,
   View,
 } from "react-native";
+
+import { Show } from "@clerk/expo";
+import { UserButton } from "@clerk/expo/native";
+import { Link } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedView } from "@/components/themed/themed-view";
-import { ListingCard } from "@/features/home/components/listing-card";
-import { categories, featuredListings } from "@/features/home/data/listings";
 import { permissions } from "@/config/permissions";
 import { Colors } from "@/constants/theme";
+import { ListingCard } from "@/features/home/components/listing-card";
+import { categories, featuredListings } from "@/features/home/data/listings";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import { useThemeColor } from "@/hooks/use-theme-color";
 

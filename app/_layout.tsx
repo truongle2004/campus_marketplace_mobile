@@ -1,18 +1,24 @@
+import { useEffect } from "react";
+
+import { ClerkProvider, useAuth } from "@clerk/expo";
+import { tokenCache } from "@clerk/expo/token-cache";
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { ClerkProvider, useAuth } from "@clerk/expo";
-import { tokenCache } from "@clerk/expo/token-cache";
 import { StripeProvider } from "@stripe/stripe-react-native";
 import { Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 
-import { AuthLoading } from "@/components/auth/auth-loading";
-import { stripeConfig } from "@/config/stripe";
-import { useColorScheme } from "@/hooks/use-color-scheme";
+import { AppLoadingScreen } from "@/components/layout/app-loading-screen";
 import { env } from "@/config/env";
+import { stripeConfig } from "@/config/stripe";
+import { useAppStartup } from "@/hooks/use-app-startup";
+import { useColorScheme } from "@/hooks/use-color-scheme";
+
+SplashScreen.preventAutoHideAsync().catch(() => {});
 
 export const unstable_settings = {
   anchor: "(app)/(tabs)",
@@ -20,10 +26,18 @@ export const unstable_settings = {
 
 function RootNavigator() {
   const colorScheme = useColorScheme();
-  const { isSignedIn, isLoaded } = useAuth();
+  const { isSignedIn, isLoaded: isAuthLoaded } = useAuth();
+  const { isReady: isStartupReady } = useAppStartup();
+  const isAppReady = isStartupReady && isAuthLoaded;
 
-  if (!isLoaded) {
-    return <AuthLoading />;
+  useEffect(() => {
+    if (isAppReady) {
+      SplashScreen.hideAsync().catch(() => {});
+    }
+  }, [isAppReady]);
+
+  if (!isAppReady) {
+    return <AppLoadingScreen />;
   }
 
   return (

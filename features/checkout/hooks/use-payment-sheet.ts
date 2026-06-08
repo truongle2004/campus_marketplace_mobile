@@ -1,6 +1,7 @@
-import { useStripe } from "@stripe/stripe-react-native";
 import { useCallback, useEffect, useState } from "react";
 import { Alert } from "react-native";
+
+import { useStripe } from "@stripe/stripe-react-native";
 
 import { fetchPaymentSheetParams } from "@/lib/api/payment-sheet";
 

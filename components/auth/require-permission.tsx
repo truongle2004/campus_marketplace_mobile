@@ -1,5 +1,5 @@
 import { useAuth } from "@clerk/expo";
-import { Redirect, type Href } from "expo-router";
+import { type Href, Redirect } from "expo-router";
 import type { ReactNode } from "react";
 
 import { AuthLoading } from "@/components/auth/auth-loading";
