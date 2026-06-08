@@ -64,8 +64,14 @@ export function HomeScreen() {
 
           <Show when={permissions.createListing}>
             <Link href="/sell" asChild>
-              <Pressable style={[styles.sellButton, { backgroundColor: tintColor }]}>
-                <ThemedText type="defaultSemiBold" lightColor="#fff" darkColor="#fff">
+              <Pressable
+                style={[styles.sellButton, { backgroundColor: tintColor }]}
+              >
+                <ThemedText
+                  type="defaultSemiBold"
+                  lightColor="#fff"
+                  darkColor="#fff"
+                >
                   Sell an item
                 </ThemedText>
               </Pressable>

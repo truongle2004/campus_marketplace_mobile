@@ -4,7 +4,7 @@ import { Alert } from "react-native";
 
 import { fetchPaymentSheetParams } from "@/lib/api/payment-sheet";
 
-const DEFAULT_CUSTOMER_ID = "cus_UZ15gRj6lwEnpk";
+const DEFAULT_CUSTOMER_ID = "cus_UeeLcNdL6n06r7";
 
 export function usePaymentSheet(customerId = DEFAULT_CUSTOMER_ID) {
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
@@ -12,7 +12,7 @@ export function usePaymentSheet(customerId = DEFAULT_CUSTOMER_ID) {
 
   const initializePaymentSheet = useCallback(async () => {
     const { paymentIntent, ephemeralKey, customer } =
-      await fetchPaymentSheetParams(customerId);
+      await fetchPaymentSheetParams(customerId, 19000, "eur");
 
     const { error } = await initPaymentSheet({
       merchantDisplayName: "Example, Inc.",
